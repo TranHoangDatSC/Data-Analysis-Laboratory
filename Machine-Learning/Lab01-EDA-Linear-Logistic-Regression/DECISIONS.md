@@ -1,7 +1,7 @@
 # Giải thích quyết định – ML Lab 01
 
 ## 1. Đối chiếu đề bài → code
-| Yêu cầu | Bước trong `main.py` / notebook |
+| Yêu cầu | Bước trong notebook |
 |---|---|
 | Cleaning data | Bước 2: đếm thiếu/trùng, bỏ `User ID`. Điền thiếu bằng median nằm trong Pipeline (bước 6–7) |
 | Heatmap, không chọn target | Bước 4: chỉ các feature (`Profit`, `Purchased` không có mặt) |

@@ -44,7 +44,4 @@ Yêu cầu chung cho cả 2 bài:
 - Với tập test nhỏ (10 hoặc 80 mẫu), kết quả một lần chia rất dao động → dùng **cross-validation** để chọn mô hình/feature.
 
 ## Chạy
-```bash
-python main.py                  # in kết quả, lưu hình + bảng vào outputs/
-```
-Hoặc mở [lab01_notebook.ipynb](lab01_notebook.ipynb): cùng nội dung với `main.py`, chia theo từng bước và có sẵn output.
+Mở [lab01_eda_regression.ipynb](lab01_eda_regression.ipynb) (Jupyter / VS Code) – notebook đã có sẵn output, xem được ngay trên GitHub. Muốn chạy lại: đặt dữ liệu vào `data/` (xem [data/README.md](data/README.md)) rồi **Run All**; hình và bảng kết quả được lưu vào `outputs/`.
