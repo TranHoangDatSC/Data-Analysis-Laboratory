@@ -23,13 +23,13 @@ Mọi kết quả đều **tái lập được**: cố định seed (`42`), riê
 
 ## Kiến thức cần nhớ
 **Clustering**
-- Phải **chuẩn hóa** trước K-Means (Proline ~750 lấn át Hue ~1).
+- Phải **chuẩn hóa** trước K-Means: Proline (std ~315) lấn át mọi feature khác. Không chuẩn hóa thì kết quả trùng hệt phân cụm chỉ theo Proline (ARI = 1.0).
 - Chọn K: **Elbow** (inertia giảm chậm lại) + **Silhouette** (càng gần 1 càng tốt).
 - **Silhouette** = (b − a) / max(a, b): a = khoảng cách trung bình trong cụm, b = tới cụm gần nhất.
-- ⚠️ Silhouette chỉ so sánh được khi đo trên **cùng một không gian**. Đo trong không gian PCA ít chiều luôn cho số cao hơn.
+- ⚠️ Silhouette chỉ so sánh được khi đo trên **cùng một không gian**. Ở Wine, đo trong không gian PCA càng ít chiều thì số càng cao (2D: 0.56 so với 0.28 khi đo trên 13 chiều).
 
 **ANN**
-- Hồi quy: lớp cuối 1 nơ-ron, không activation, loss MSE. **Chuẩn hóa cả target**, rồi `inverse_transform` khi đánh giá.
+- Hồi quy: lớp cuối 1 nơ-ron, không activation, loss MSE. **Chuẩn hóa cả target**, rồi `inverse_transform` khi đánh giá. Không chuẩn hóa thì RMSE ~34 000, ngang việc đoán hằng số.
 - Phân loại đa lớp: softmax + cross-entropy (MLPClassifier tự xử lý).
 - **EarlyStopping** + tập validation tách từ train giúp chống overfitting và tự chọn số epoch.
 
