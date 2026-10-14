@@ -1,0 +1,39 @@
+# ===== Thư mục cá nhân / lưu trữ (không đưa lên GitHub) =====
+_private/
+_archive/
+
+# ===== Dữ liệu đầu vào (không đẩy lên GitHub, chỉ giữ README mô tả cần tải gì) =====
+**/data/*
+!**/data/README.md
+
+# ===== Báo cáo đã nộp (.docx/.pdf) – số liệu cũ, khác code hiện tại =====
+**/report/
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# ===== Môi trường ảo =====
+venv/
+.venv/
+env/
+tfenv/
+
+# ===== Editor / OS =====
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== File tạm của Office (khi đang mở docx/xlsx) =====
+~$*
+
+# ===== Model / checkpoint lớn (nếu sau này có) =====
+*.h5
+*.keras
+*.pkl
+*.pt
+*.ckpt
