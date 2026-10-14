@@ -9,3 +9,4 @@ openpyxl          # đọc Dry_Bean_Dataset.xlsx
 tabulate          # DataFrame.to_markdown()
 tensorflow        # ML Lab03: ex2 (ANN regression), ex4 (Bi-LSTM)
 ipykernel         # chạy notebook ML Lab01
+nbclient
