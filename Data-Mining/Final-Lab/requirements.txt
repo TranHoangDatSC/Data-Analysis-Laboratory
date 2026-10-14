@@ -1,0 +1,14 @@
+numpy>=2.0.2
+opencv-contrib-python>=4.13.0.92
+pandas>=2.2.0
+matplotlib>=3.10.0
+seaborn>=0.13.0
+scikit-learn>=1.4.0
+tensorflow>=2.16.0
+imbalanced-learn      # Phần 2: RandomUnderSampler
+nltk                  # Phần 3
+kaggle                # Phần 1, 2: tải dataset bằng Kaggle CLI
+kagglehub             # Phần 3
+yfinance              # Phần 4
+nbclient 
+jinja2
