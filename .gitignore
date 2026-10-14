@@ -5,6 +5,7 @@ _archive/
 # ===== Dữ liệu đầu vào (không đẩy lên GitHub, chỉ giữ README mô tả cần tải gì) =====
 **/data/*
 !**/data/README.md
+*.zip
 
 # ===== Báo cáo đã nộp (.docx/.pdf) – số liệu cũ, khác code hiện tại =====
 **/report/
