@@ -1,0 +1,11 @@
+# Thư viện chung cho tất cả các lab (Python 3.11 – 3.13)
+numpy
+pandas
+matplotlib
+seaborn
+opencv-python
+scikit-learn
+openpyxl          # đọc Dry_Bean_Dataset.xlsx
+tabulate          # DataFrame.to_markdown()
+tensorflow        # ML Lab03: ex2 (ANN regression), ex4 (Bi-LSTM)
+ipykernel         # chạy notebook ML Lab01
