@@ -27,16 +27,16 @@ Mô hình đề xuất dựa trên CABiLSTM-BERT (He et al., 2025), thay 2 tần
 ## Cấu trúc
 | File | Nội dung |
 |---|---|
-| [notebooks/01_eda_res16.ipynb](notebooks/01_eda_res16.ipynb) | EDA Res16 (đọc thẳng XML): không gian nhãn, phân bố cảm xúc theo khía cạnh và theo split, độ dài câu theo token, target ngầm định, kiểm chứng emoji/URL |
-| [notebooks/02_eda_aware.ipynb](notebooks/02_eda_aware.ipynb) | EDA bộ AWARE (đánh giá ứng dụng mạng xã hội); bộ này **không được dùng để huấn luyện** |
+| [notebooks/01_eda_res16.ipynb](notebooks/01_eda_res16.ipynb) | EDA Res16 (đọc thẳng XML): không gian nhãn, phân bố cảm xúc theo khía cạnh và theo split, độ dài câu (ký tự và token, có p95), số khía cạnh mỗi câu và tỉ lệ câu có cực tính trái chiều, target tường minh/ngầm định theo split, kiểm chứng emoji/URL |
+| [notebooks/02_eda_aware.ipynb](notebooks/02_eda_aware.ipynb) | EDA bộ AWARE (đánh giá ứng dụng mạng xã hội, cùng bảng màu và cách đánh số với notebook 01); bộ này **không được dùng để huấn luyện** |
 | [notebooks/03_model_gru_bilstm_res16.ipynb](notebooks/03_model_gru_bilstm_res16.ipynb) | **Bản gốc của nhóm**, giữ để đối chiếu: parse XML, trích đặc trưng BERT đóng băng, mô hình đề xuất, huấn luyện 50 epoch (Kaggle, 2× Tesla T4). Không dùng 86,61% làm kết quả chính |
 | [src/absa_common.py](src/absa_common.py) | Hàm dùng chung: parse XML, tách train/val theo review, tính metric (giao thức đánh giá cho notebook 04 trở đi) |
 | [notebooks/04_baseline_tfidf_res16.ipynb](notebooks/04_baseline_tfidf_res16.ipynb) | Baseline BoW/TF-IDF + LR/SVM, 5 seed, chọn tham số trên validation (không dùng test), phân tích lỗi |
 | [src/absa_torch.py](src/absa_torch.py) | Mô hình lai PyTorch có mask (GRU/BiLSTM/Attention/CNN bật-tắt được), fine-tune BERT+[CLS], vòng huấn luyện chọn epoch trên validation |
-| [notebooks/05_deep_models_res16.ipynb](notebooks/05_deep_models_res16.ipynb) | BERT fine-tune, mô hình lai, ablation thành phần và backbone (RoBERTa, DeBERTa-v3), 5 seed, và đo hai điểm yếu của notebook 03 (mục G) |
+| [notebooks/05_deep_models_res16.ipynb](notebooks/05_deep_models_res16.ipynb) | BERT fine-tune, mô hình lai, ablation thành phần và backbone (RoBERTa, DeBERTa-v3), 5 seed, và đo hai điểm yếu của notebook 03 (mục G); có biểu đồ Macro F1, ablation (forest plot), ma trận nhầm lẫn và chọn epoch |
 | `results/` | Kết quả notebook 05: `deep_results_runs.json` (từng lần chạy), `deep_results_summary.csv` (bảng tổng hợp), `h1_epoch_selection.csv` (mục G1), `deep_preds.pkl` (dự đoán test, dùng để vẽ ma trận nhầm lẫn). Notebook 05 đọc các file này để không chạy lại phần đã xong |
 | [docs/FinalReport-NLP-ABSA-submitted.pdf](docs/FinalReport-NLP-ABSA-submitted.pdf) | Báo cáo đã nộp (giữ nguyên) |
-| [docs/FinalReport-NLP-ABSA-Remastered.docx](docs/FinalReport-NLP-ABSA-Remastered.docx) | Báo cáo viết lại sau khi nộp; **chưa cập nhật theo kết quả notebook 04–05** |
+| [docs/FinalReport-NLP-ABSA-Remastered.docx](docs/FinalReport-NLP-ABSA-Remastered.docx) | Báo cáo viết lại theo kết quả notebook 04–05 (giao thức đúng, ablation thật, số liệu dữ liệu tính lại) |
 
 ## Giao thức đánh giá (notebook 04 và 05)
 - Validation tách từ **train** theo *review* (không để câu cùng review nằm ở cả train và validation), stratify theo polarity. Res16 không có sẵn tập dev.
@@ -110,19 +110,18 @@ Phần còn lại của khoảng cách (class weight, lr, chuẩn hóa, độ d�
 | Learning rate 3×10⁻⁵ | `Adam(1e-5)` |
 | Tiền xử lý: bỏ ký tự đặc biệt, tách từ, lemmatization, stemming | Chỉ lowercase, bỏ URL, `emoji.demojize` (và không nên làm thêm: BERT cần câu gốc có dấu câu) |
 | Negative nhận đúng 183/204 (89,7%) | Recall negative 0,833 (≈ 170/204) |
-| Câu trung bình 80–100 ký tự (bản Remastered) | 67,9 ký tự (trung vị 58) |
+| Câu trung bình 80–100 ký tự (bản Remastered) | 67,8 ký tự (trung vị 58) |
 | Res16: 98,5% câu có ký tự đặc biệt, 22,2% có emoji, 25% target ngầm định (bản nộp) | Không có trong notebook nào; tỉ lệ emoji này không hợp với Res16 |
 
 **6. Nội dung chép sai ngữ cảnh.** Mục 2.1 (SMOTE) chép từ một bài báo về **phát hiện trầm cảm**, không liên quan ABSA. Ví dụ minh họa tiền xử lý ("IT professional… battery management") lấy từ bộ AWARE, không phải Res16. Ví dụ tính độ đo ở mục 4.2 của bản nộp có ma trận nhầm lẫn không khớp phân bố đã nêu (hàng Negative cộng ra 18 chứ không phải 20) và tính FP theo hàng thay vì theo cột.
 
-**7. Bản Remastered còn sót ghi chú kiểu reviewer** ("nhóm nên bổ sung một đoạn thảo luận…", "như đã chỉ ra ở Phần B", "SourceCode.ipynb"), chương kết luận vẫn nói "nghiên cứu trên hai bộ dữ liệu AWARE và Res16" dù AWARE không được huấn luyện, và đánh số mục nhảy từ 4.4.1 sang 4.5.2.
-
-**8. So sánh SOTA không cùng điều kiện.** Các con số ATAE-LSTM, ASGCN-DG, UIKA-BERT, CABiLSTM-BERT được chép từ bài báo, mỗi bài có giao thức riêng (các mô hình họ BERT trong đó được **fine-tune**); mô hình của nhóm dùng BERT **đóng băng** và chọn epoch trên tập test. Accuracy bằng đúng CABiLSTM-BERT (86,61) là trùng hợp; Macro F1 (59,7) thấp hơn 14 điểm so với CABiLSTM-BERT gốc (73,54) nên không thể gọi là "tương đương".
+**7. So sánh SOTA không cùng điều kiện.** Các con số ATAE-LSTM, ASGCN-DG, UIKA-BERT, CABiLSTM-BERT được chép từ bài báo, mỗi bài có giao thức riêng (các mô hình họ BERT trong đó được **fine-tune**); mô hình của nhóm dùng BERT **đóng băng** và chọn epoch trên tập test. Accuracy bằng đúng CABiLSTM-BERT (86,61) là trùng hợp; Macro F1 (59,7) thấp hơn 14 điểm so với CABiLSTM-BERT gốc (73,54) nên không thể gọi là "tương đương".
 
 ## Phần dữ liệu (EDA)
 Hai notebook EDA (phần của Trần Hoàng Đạt) chạy được và số liệu khớp với báo cáo ở các bảng phân bố. Đã sửa (10/2026):
 - Notebook 01 trước đây đọc `restaurants_*_sb1.csv` (dạng wide từ Kaggle, **không có** trong `data/`); nay đọc thẳng XML bằng `src/absa_common.py`, số liệu giữ nguyên (2 507 / 859 cặp).
 - Notebook 02: ô thống kê target ngầm định bị `KeyError: 'sentiment'` (cột đã đổi tên `polarity`) và đếm 0 trường hợp vì term thiếu là `NaN`, không phải chuỗi `N/A`. Nay: 18/3 118 (0,58%) ngầm định chặt, 199 (6,4%) nếu tính cả term chung chung ("app", "version"…).
+- Cả hai notebook EDA sau đó được sắp xếp lại (10/2026): mục lục, Bước 0–4, cell đánh số liên tục, cùng bảng màu với báo cáo. Notebook 01 định danh câu theo (review, câu) nên khớp báo cáo: 2 295 câu, 67,8 ký tự, 32,0% câu nhiều khía cạnh, trong đó 25,2% có cực tính trái chiều; thêm p95 độ dài câu và biểu đồ target tường minh/ngầm định theo split.
 - Đã bổ sung cho Res16: target ngầm định **25,0% train / 24,3% test**; token dài nhất cận trên ≈133, 97% câu ≤ 64 token (nên `MAX_LEN=256` thừa ~90% padding; notebook 05 dùng 128); Res16 **không có emoji hay URL** (nên "22,2% câu có emoji" trong báo cáo là sai); test lệch nhẹ so với train (negative 23,7% so với 29,9%).
 - Dữ liệu: 3 366 cặp, 12 khía cạnh, mất cân bằng nặng 2 268 positive : 953 negative : 145 neutral (4,3%); câu trung bình 68 ký tự; 32% câu có hơn một khía cạnh.
 - Còn lại: biểu đồ Plotly (sunburst, sankey) vẫn không hiển thị trên GitHub; các biểu đồ matplotlib tương đương đã thay cho biểu đồ tần suất category.
