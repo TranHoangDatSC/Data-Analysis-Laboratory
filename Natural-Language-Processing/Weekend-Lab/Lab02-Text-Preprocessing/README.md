@@ -8,7 +8,6 @@ Xây dựng pipeline tiền xử lý: chuẩn hóa → chữ thường → làm 
 |---|---|
 | [notebooks/lab02_text_preprocessing_vi.ipynb](notebooks/lab02_text_preprocessing_vi.ipynb) | Pipeline trên câu tiếng Việt "Sinh viên!!! Đang học NLP tại Trường Đại Học Sư Phạm TP.HCM" (bản đã sửa: tách từ bằng `underthesea`, POS tiếng Việt, ghi rõ không cần lemmatization, đã chạy) |
 | [notebooks/lab02_text_preprocessing_en.ipynb](notebooks/lab02_text_preprocessing_en.ipynb) | Dựng lại từ ảnh chụp trong báo cáo (câu tiếng Anh): chữ thường, làm sạch, tách từ, stopword, POS, Porter Stemmer, WordNet Lemmatizer. Chưa chạy trên máy tác giả (cần tải dữ liệu NLTK) |
-| [docs/lab02_report.docx](docs/lab02_report.docx) | Báo cáo giải thích pipeline trên câu **tiếng Anh** (Natural Language Processing…), có so sánh Porter Stemmer và WordNet Lemmatizer |
 
 Notebook tiếng Anh tương ứng với báo cáo đã được dựng lại ở trên. Cài thư viện bằng `requirements.txt`.
 

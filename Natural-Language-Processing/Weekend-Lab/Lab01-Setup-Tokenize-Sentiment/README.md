@@ -6,7 +6,6 @@
 3. Phân loại cảm xúc vài câu bằng mô hình có sẵn của Hugging Face.
 
 ## Cách làm & kết quả
-Bài gốc chỉ có **báo cáo Word** ([docs/lab01_report.docx](docs/lab01_report.docx)). Notebook [notebooks/lab01_cai_dat_tach_tu_cam_xuc.ipynb](notebooks/lab01_cai_dat_tach_tu_cam_xuc.ipynb) dựng lại các bước đó từ ảnh chụp code trong báo cáo (chưa chạy trên máy tác giả; kết quả kỳ vọng ghi ngay trong notebook), kèm [requirements.txt](requirements.txt).
 - `word_tokenize("I love studying Natural Language Processing")` → 6 token; loại stopword sau khi `lower()` vì danh sách stopword của NLTK viết thường.
 - `pipeline("sentiment-analysis")` tải mô hình mặc định (DistilBERT fine-tune trên SST-2), trả về POSITIVE/NEGATIVE kèm điểm tin cậy; câu tích cực rõ ràng đạt ≈ 0,9999.
 
