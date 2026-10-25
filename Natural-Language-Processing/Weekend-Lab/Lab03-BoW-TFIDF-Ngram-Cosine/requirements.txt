@@ -1,0 +1,4 @@
+umpy
+pandas
+matplotlib
+scikit-learn
