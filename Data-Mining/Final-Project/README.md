@@ -33,7 +33,7 @@
 
 **Người thực hiện**
 - **v1:** nhóm 02 (Trần Hoàng Đạt, Võ Văn Minh, Nguyễn Trần Bảo Thái) cùng thực hiện và nộp 05/2026. Tác giả hệ thống POS và nguồn dữ liệu: Trần Hoàng Đạt.
-- **v2:** Trần Hoàng Đạt làm lại sau khi nộp (10/2026), với sự hỗ trợ của trợ lý AI Claude Code trong việc rà soát, viết code và tài liệu.
+- **v2:** Trần Hoàng Đạt làm lại sau khi nộp (10/2026).
 
 ## Đề bài
 Dữ liệu thật từ một hệ thống POS (do tác giả tự viết và triển khai cho một quán F&B), 20/12/2025 – 30/04/2026, **không có nhãn** ca nào là gian lận. Câu hỏi:
